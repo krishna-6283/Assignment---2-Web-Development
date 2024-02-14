@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAI</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000000;
+      color: #ffffff;
+    }
+
+    a{
+        text-decoration: none;
+    }
+
+    a:hover{
+        border-bottom: 1px solid #ffffff;
+    }
+
+    #button-ccolor{
+        background-color: #000000;
+        border: 2px solid #ffffff;
+        border-radius: 4px;
+    }
+
+    #button-ccolor:hover{
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+    .navbar {
+      background-color: #000000;
+    }
+
+    .navbar-brand img {
+      margin-right: 10px;
+    }
+
+    .navbar-nav .nav-link {
+      padding: 0.5rem 1rem;
+      margin: 0 10px;
+    }
+
+    .dropdown-menu {
+      margin-top: 10px;
+    }
+
+    .dropdown-menu a {
+      padding: 10px 20px;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+    }
+
+    .video-heading {
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #ffffff;
+      font-size: 3rem;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .text-wrapper {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 0px;
+      background-color: #000000;
+      padding: 20px 0;
+    }
+
+    .text-container {
+      flex: 1;
+      text-align: left;
+    }
+
+    .text-container h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .text-container a {
+      color: #ffffff;
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background-color: #ffffff;
+      opacity: 0.5;
+      margin: 20px auto;
+      width: 94%;
+    }
+
+    .image-container {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    .image-box {
+      flex: 1;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .image-box img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .full-screen-image {
+      margin-top: 50px;
+      margin-bottom: 50px;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .full-screen-image img {
+      width: 100%;
+      max-height: 100%;
+    }
+
+    .huge-heading {
+      font-size: 5rem;
+      text-align: left;
+      margin-left: 70px;
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
+
+    .full-width-button {
+      display: block;
+      width: 90%;
+      margin-left: 70px;
+      margin-bottom: 70px;
+      padding: 20px 0;
+      background-color: #000000;
+      border: 2px solid #ffffff;
+      border-radius: 10px;
+      color: #ffffff;
+      text-align: center;
+      text-decoration: none;
+      font-size: 2rem;
+    }
+
+    .full-width-button:hover {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    .image-container {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      padding: 0 20px;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .row-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      margin-bottom: 120px;
+      padding: 0 20px;
+      color: #ffffff;
+    }
+
+    .row-item {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      margin-right: 10px;
+      margin-top: 100px;
+    }
+
+    .row-item h3 {
+      font-size: 1.5rem;
+    }
+
+    .row-item a {
+      color: #ffffff;
+    }
+
+    .link-container {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      padding: 0 20px;
+      margin-bottom: 150px;
+    }
+
+    .link-container h2 {
+      font-size: 1.5rem;
+      margin-right: 20px;
+    }
+
+    .link-container a {
+      color: #ffffff;
+      margin-right: 20px;
+    }
+    .navbar {
+  background-color: transparent;
+  width: 100%;
+  z-index: 1000;
+  position: fixed;
+  transition: background-color 1 ease;
+}
+.navbar.scrolled {
+  background-color: #000; 
+}
+
+.navbar-toggler {
+  border: 1px solid #ffffff; 
+}
+
+.navbar-nav {
+  margin-left: auto;
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff;
+}
+
+#button-ccolor {
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  color: #ffffff;
+}
+
+#button-ccolor:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+
+
+
+
+
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    background-color: #000000; 
+  }
+
+  .navbar-nav {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    position: absolute;
+    top: 60px; 
+    left: 0;
+    background-color: #000000; 
+  }
+
+  .navbar-toggler {
+    border: 1px solid #ffffff; 
+    color: #ffffff;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="visualhunter-1686f70156.png" alt="Logo" width="140" height="45" class="d-inline-block align-top" class="transparent-image">
+
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Research
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+            <li><a class="dropdown-item" href="#">Overview</a></li>
+            <li><a class="dropdown-item" href="#">Index</a></li>
+            <li><a class="dropdown-item" href="#">GPT-4</a></li>
+            <li><a class="dropdown-item" href="#">DALL.E3</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            API
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+            <li><a class="dropdown-item" href="#">Overview</a></li>
+            <li><a class="dropdown-item" href="#">Pricing</a></li>
+            <li><a class="dropdown-item" href="#">Docs</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            ChatGPT
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
+            <li><a class="dropdown-item" href="#">Overview</a></li>
+            <li><a class="dropdown-item" href="#">Team</a></li>
+            <li><a class="dropdown-item" href="#">Enterprise</a></li>
+            <li><a class="dropdown-item" href="#">Pricing</a></li>
+            <li><a class="dropdown-item" href="#">Try ChatGPT</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Company
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
+            <li><a class="dropdown-item" href="#">About</a></li>
+            <li><a class="dropdown-item" href="#">Blog</a></li>
+            <li><a class="dropdown-item" href="#">Careers</a></li>
+            <li><a class="dropdown-item" href="#">Residency</a></li>
+            <li><a class="dropdown-item" href="#">Charter</a></li>
+            <li><a class="dropdown-item" href="#">Security</a></li>
+            <li><a class="dropdown-item" href="#">Customer Stories</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Search</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Log in &#8599</a>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="btn btn-primary" id="button-ccolor">Try ChatGPT &#8599</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="video-container">
+  <video autoplay muted loop>
+    <source src="gpt-4-92586ac_1080p60.mp4" type="video/mp4">
+  </video>
+  <h1 class="video-heading">Creating safe AGI that benefits all of humanity</h1>
+</div>
+
+<div class="text-wrapper">
+    <div class="text-container">
+      <h2 style="margin-left: 20px;">Research on the path to AGI</h2>
+      <a href="#" style="margin-left: 20px;">Learn about our research</a>
+    </div>
+    <div class="text-container">
+      <h2>Transforming work and creativity with AI</h2>
+      <a href="#">Explore our products</a>
+    </div>
+    <div class="text-container">
+      <h2>Join us in shaping the future of technology</h2>
+      <a href="#">View careers</a>
+    </div>
+  </div>
+  <hr>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Latest updates</h2>
+      </div>
+      <div class="col-md-6 text-end">
+        <a href="#" style="color: #ffffff;">View all updates</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="image-container">
+    <div class="image-box">
+      <img src="https://images.openai.com/blob/ec19d092-e613-41c0-8dcb-57e030658420/new-embeddings-models-and-api-updates.jpg?trim=0,0,0,0&width=800" alt="Image 1">
+      <p>New embedding models and API updates</p>
+      <a href="#" style="color: #ffffff;">Jan 25, 2024</a>
+    </div>
+    <div class="image-box">
+      <img src="https://images.openai.com/blob/f50ce1d2-4f61-4ed2-86ca-556773bee5ee/democratic-inputs-to-ai-grant-program-update.png?trim=0,0,0,0&width=800" alt="Image 2" style="margin-top: 24px;">
+      <p>Democratic inputs to AI grant program: lessons learned and implementation plans</p>
+      <a href="#" style="color: #ffffff;">Jan 16, 2024</a>
+    </div>
+    <div class="image-box">
+      <img src="https://images.openai.com/blob/d78a3b67-71f0-4487-901e-5b0099cbaa80/how-openai-is-approaching-2024-worldwide-elections.jpg?trim=0,0,0,0&width=800" alt="Image 3" style="margin-top: 24px;">
+      <p>How OpenAI is approaching 2024 worldwide elections</p>
+      <a href="#" style="color: #ffffff;">Jan 15, 2024</a>
+    </div>
+    <div class="image-box">
+      <img src="https://images.openai.com/blob/cc305f9e-cb40-426f-a8b8-b18ddd576588/team-hero-for-blog.jpg?trim=0,528,0,521&width=800" alt="Image 4">
+      <p>Introducing ChatGPT Team</p>
+      <a href="#" style="color: #ffffff;">Jan 10, 2024</a>
+    </div>
+</div>
+
+<hr>
+
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <h1>Safety & responsibility</h1>
+      </div>
+      <div class="col-md-6 text-start">
+        <h2>Our work is to create safe and beneficial AI requires a deep understanding of the potential risks and benefits, as well as careful consideration of the impact.</h2>
+        <a href="#" style="color: #ffffff;">Learn about safety</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="full-screen-image">
+    <img src="https://images.openai.com/blob/971cb9d4-66e4-46b0-95d8-f3b57931b08e/stangel-2022-0052.jpg?trim=0,0,0,0&width=2000">
+  </div>
+
+  <hr>
+
+  <div class="image-container">
+    <div class="col-md-6">
+      <h1 style="margin-left: 20px;">"I encourage my team to keep learning. Ideas in different topics or fields can often inspire new ideas and broaden the potential solution space."</h1>
+      <h5 style="margin-left: 20px;">Lilian Weng</h5>
+      <h5 style="margin-left: 20px;">Applied AI at OpenAI</h5>
+    </div>
+    <div class="col-md-6">
+      <div class="image-box">
+        <img src="https://images.openai.com/blob/734af367-24c1-4043-934c-269a6a3ec47e/stangel-2022-0484.jpg?trim=0,537,40,462&width=2000" alt="Big Image">
+      </div>
+    </div>
+  </div>
+  <br><br><br><br>
+
+  <hr>
+
+  <h1 class="huge-heading">Join us in shaping the future of technology.</h1>
+
+  <a href="#" class="full-width-button">View careers</a>
+  
+  <div class="row-container">
+    <div class="image-container">
+      <img src="data:image/png;base64,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" alt="Left Image">
+    </div>
+    <div class="row-item">
+      <h3>Research</h3>
+      <a href="#">Overview</a>
+      <a href="#">Index</a>
+      <a href="#">GPT-4</a>
+      <a href="#">DALL.E3</a>
+    </div>
+    <div class="row-item">
+      <h3>API</h3>
+      <a href="#">Overview</a>
+      <a href="#">Pricing</a>
+      <a href="#">Docs</a>
+    </div>
+    <div class="row-item">
+      <h3>ChatGPT</h3>
+      <a href="#">Overview</a>
+      <a href="#">Team</a>
+      <a href="#">Enterprise</a>
+      <a href="#">Pricing</a>
+      <a href="#">Try ChatGPT</a>
+    </div>
+    <div class="row-item">
+      <h3>Company</h3>
+      <a href="#">About</a>
+      <a href="#">Blog</a>
+      <a href="#">Careers</a>
+      <a href="#">Charter</a>
+      <a href="#">Security</a>
+      <a href="#">Customer Stories</a>
+      <a href="#">Safety</a>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="link-container">
+    <h2>OpenAI © 2015-2024</h2>
+    <a href="#" style="margin-left: 30%;">Twitter</a>
+    <a href="#" style="margin-left: 30px;">Youtube</a>
+    <a href="#" style="margin-left: 30px;">GitHub</a>
+    <a href="#" style="margin-left: 30px;">SoundCloud</a>
+    <a href="#" style="margin-left: 30px;">LinkedIn</a>
+  </div>
+
+  <hr>
+  <script>
+    window.addEventListener('scroll', function () {
+      var navbar = document.querySelector('.navbar');
+      if (window.scrollY > 0) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    </script>
+</body>
+</html>
